@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>小册子打印的页码计算</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		function printmanual() {
+			/**
+			计算页码的主函数
+			基本规则是:
+
+      偶数位: 反面减i,正面减0
+			奇数位: 反面加2,正面减i
+
+			位数== 0 1 2 3
+			反面== 2,7,4,5
+			正面== 8,1,6,3
+			 */
+			var number = document.getElementById("input_panel").value;
+
+			// if (number % 8 !== 0) {
+			// 	alert("输入全部页数，须为8的倍");
+			// 	document.getElementById("input_panel").value = 0;
+			// 	return;
+			// }
+
+			var back = new Array(number / 2);
+			var front = new Array(number / 2);
+
+			for (var i = 0; i < number / 2; i++) {
+				if ((i + 1) % 2 == 0) {
+					back[i] = number - i;
+					front[i] = i;
+				} else {
+					back[i] = i + 2;
+					front[i] = number - i;
+				}
+			}
+			document.getElementById("back_result_panel").innerHTML = back.join();
+			document.getElementById("front_result_panel").innerHTML = front.join();
+
+		}
+	</script>
+</head>
+
+<body style="color: #663399;">
+
+	<div id="main" style="
+    margin-left: 25px;
+    margin-right: 25px;
+    border-left-width: 25px;
+    border-right-width: 25px">
+		<div id="title" style="
+		  text-align: center;
+			font-size: 1.5em;
+			border: 2px solid #663399;
+			box-shadow: none;
+			color: #eeeeee;
+			font-weight: normal;
+			margin-top: 20px;
+			background-color: #663399;
+			background-size: 30px 30px;
+			padding: 15px 10px 15px 10px;
+			width: 70%;">
+			<h1>计算小册子页码</h1>
+		</div>
+		<br>
+		<div style="
+		text-align: left;
+		">
+			<h3>输入全部页数，须为8的倍数</h3>
+			<input style="
+		  height: 60px;
+		  width: 20%;
+			font-size: 1.2em;
+			border: 2px solid #663399;
+			border-radius: 4px;" type="text" id="input_panel" placeholder="0" onkeyup="printmanual()">
+		</div>
+		<br>
+		<br> 反面页码：
+		<div id="back_result_panel" style="
+		font-size: 1.5em;
+		text-align: center;
+		border: 2px solid #663399;
+		border-radius: 4px;
+		box-shadow: none;
+    color: #eeeeee;
+		font-weight: normal;
+		margin-top: 20px;
+    background-color: #8665a7;
+		background-size: 30px 30px;
+		padding: 15px 10px 15px 10px;
+		width: 70%;
+		">0</div>
+		<br> 正面页码：
+		<div id="front_result_panel" style="
+		font-size: 1.5em;
+		text-align: center;
+		border: 2px solid #663399;
+		border-radius: 4px;
+		box-shadow: none;
+    color: #eeeeee;
+		font-weight: normal;
+		margin-top: 20px;
+    background-color: #8665a7;
+		background-size: 30px 30px;
+		padding: 15px 10px 15px 10px;
+		width: 70%;
+		">0</div>
+		<br>
+		<br>
+		<h3>使用小贴士:以惠普 HP Laserjet 1106p 打印机为例</h3>
+		<nl>
+			<li>第一步：调出[打印对话框],[版式]选择2(结果为1/8开)或4(结果为1/16开)</li>
+			<li>第二步：粘贴[反面页码]到[打印页码范围]栏，进行打印</li>
+			<li>第三步：纸张取出，方向不变，进行逆序排列，放回打印机</li>
+			<li>第四步：粘贴[正面页码]到[打印页码范围]栏，进行打印</li>
+			<li>第五步：从中间剪裁,按小册子页序排好,骑缝装订即可!</li>
+		</nl>
+	</div>
+
+
+</body>
+
+</html>
